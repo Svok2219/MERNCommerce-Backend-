@@ -2,40 +2,67 @@ const { Product } = require("../Model/Product");
 const express = require("express");
 const Router = express.Router();
 
-// Router.post('/postRequestApplication',async (req,res)=>{
-//     const ApplicationForPost = new Application({
-//       NeederName:req.body.NeederName,
-//       Email:req.body.Email,
-//       MobileNumber:req.body.MobileNumber,
-//       Address:req.body.Address,
-//       BloodGroup:req.body.BloodGroup,
-//       Hospital:req.body.Hospital
-//   })
+Router.post('/',async (req,res)=>{
+    const ProductForPost = new Product({
+      name:req.body.name,
+      price:req.body.price,
+      DelPrice:req.body.DelPrice,
+      InitialStock:req.body.InitialStock,
+      Category:req.body.Category,
+      sold:req.body.sold,
+      image:req.body.image,
+      Description:req.body.Description,
+    //   images:req.body.images
+  })
+  const postedProduct = await ProductForPost.save()
+  if(!postedProduct) return res.status(400).json({success:false})
+  res.status(200).json({success:true,content:postedProduct})
+    })
 
-//   const postedApplication = await ApplicationForPost.save()
-//   if(!postedApplication) return res.status(400).json({success:false})
-//   res.status(200).json({success:true,content:postedApplication})
-//     })
+Router.patch('/:id', (req,res)=>{
+    Product.findByIdAndUpdate(req.params.id,{
+        name:req.body.name,
+        price:req.body.price,
+        DelPrice:req.body.DelPrice,
+        InitialStock:req.body.InitialStock,
+        Category:req.body.Category,
+        sold:req.body.sold,
+        image:req.body.image,
+        Description:req.body.Description,
+        // images:req.body.images
+    })
+    .then((result)=>{
+            if(result){res.send(result)}
+            else{res.send("Couldn’t delete the Request Boss")}
+    })
+    .catch((err)=>res.send(err))
+})
 
-//   Router.get("/getRequestApplications", async (req,res)=>{
-//     const Applications = await Application.find().populate('BloodGroup')
-//     if(!Applications) return res.status(400).send("Couldn’t get anything for you")
-//     res.status(200).send(Applications)
-//   })
+  Router.get("/", async (req,res)=>{
+    const Products = await Product.find().populate('Category')
+    if(!Products) return res.status(400).send("Couldn’t get anything for you")
+    res.status(200).send(Products)
+  })
 
-//   Router.get("/FindByBG/:id", async (req,res)=>{
-//     const specifiedApplication = await Application.find({BloodGroup:req.params.id})
-//     if(!specifiedApplication) return res.status(400).send("Couldn’t get anything for you")
-//     res.status(200).send(specifiedApplication)
-//   })
+  Router.get("/FindByCategory/:id", async (req,res)=>{
+    const specifiedProduct = await Product.find({Category:req.params.id})
+    if(!specifiedProduct) return res.status(400).send("Couldn’t get anything for you")
+    res.status(200).send(specifiedProduct)
+  })
 
-//   Router.delete("/deleteApplication/:id",(req,res)=>{
-//      Application.findByIdAndRemove(req.params.id)
-//        .then((result)=>{
-//          if(result){res.send(result)}
-//          else{res.send("Couldn’t delete the Request Boss")}
-//          })
-//          .catch((err)=>res.send(err))
-//   })
+  Router.get("/:id", async (req,res)=>{
+    const specifiedProduct = await Product.findById(req.params.id)
+    if(!specifiedProduct) return res.status(400).send("Couldn’t get anything for you")
+    res.status(200).send(specifiedProduct)
+  })
+
+  Router.delete("/:id",(req,res)=>{
+     Product.findByIdAndRemove(req.params.id)
+       .then((result)=>{
+         if(result){res.send(result)}
+         else{res.send("Couldn’t delete the Request Boss")}
+         })
+         .catch((err)=>res.send(err))
+  })
 
 module.exports = Router;

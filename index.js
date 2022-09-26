@@ -8,18 +8,19 @@ const mongoose = require("mongoose");
 
 app.get("/", (req, res) => res.send("Hello world! once again"));
 
-// const ProductsRouter = require("./Router/ProductsRouter");
+const ProductsRouter = require("./Router/ProductsRouter");
 const CategoryRouter = require("./Router/CategoryRouter");
 const UserRouter = require("./Router/UserRouter");
 const GalleryRouter = require("./Router/GalleryRouter");
 
-// app.use("/Products", ProductsRouter);
+app.use("/Products", ProductsRouter);
 app.use("/User", UserRouter);
 app.use("/Category", CategoryRouter);
 app.use("/Gallery", GalleryRouter);
-mongoose
-  .connect(
-    `mongodb+srv://MERNdeveloper:useitforgood@clustermerncom.ukkrnja.mongodb.net/?retryWrites=true&w=majority`,
+
+
+mongoose.connect(
+    `mongodb+srv://MERNdeveloper:${process.env.DB_PASS}@clustermerncom.ukkrnja.mongodb.net/?retryWrites=true&w=majority`,
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

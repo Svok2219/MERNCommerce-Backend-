@@ -7,6 +7,10 @@ const ProductModel = mongoose.Schema({
   sold: { type: Number, required: true },
   Description: { type: String, required: true },
   image: { type: String, required: true },
-  images: [{ type: String, required: true }]
+  // images: [{ type: String, required: true }],
+  Category:{type:mongoose.Schema.Types.ObjectId,
+    ref:'Category',
+    required:true
+  },
 });
 exports.Product = mongoose.model("Product", ProductModel);
