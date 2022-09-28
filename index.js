@@ -5,8 +5,15 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-
+const cors = require('cors')
+const bodyParser = require('body-parser')
+app.use(cors())
+app.use('*',cors())
 app.get("/", (req, res) => res.send("Hello world! once again"));
+// var bodyParser = require('body-parser');
+//app.use(express.bodyParser());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 const ProductsRouter = require("./Router/ProductsRouter");
 const CategoryRouter = require("./Router/CategoryRouter");

@@ -3,6 +3,7 @@ const express = require("express");
 const Router = express.Router();
 
 Router.post('/',async (req,res)=>{
+  console.log(req.body)
     const ProductForPost = new Product({
       name:req.body.name,
       price:req.body.price,
