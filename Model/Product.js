@@ -8,6 +8,14 @@ const ProductModel = mongoose.Schema({
   Description: { type: String, required: true },
   image: { type: String, required: true },
   // images: [{ type: String, required: true }],
+//   images:{
+//     type:[String],
+//     required: true
+//  },
+ images : [{
+  type: String, required: true
+}]
+ ,
   Category:{type:mongoose.Schema.Types.ObjectId,
     ref:'Category',
     required:true

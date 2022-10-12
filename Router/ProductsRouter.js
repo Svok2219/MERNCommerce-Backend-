@@ -3,7 +3,7 @@ const express = require("express");
 const Router = express.Router();
 
 Router.post('/',async (req,res)=>{
-  console.log(req.body)
+  // console.log(req.body)
     const ProductForPost = new Product({
       name:req.body.name,
       price:req.body.price,
@@ -13,7 +13,7 @@ Router.post('/',async (req,res)=>{
       sold:req.body.sold,
       image:req.body.image,
       Description:req.body.Description,
-    //   images:req.body.images
+      images:req.body.images
   })
   const postedProduct = await ProductForPost.save()
   if(!postedProduct) return res.status(400).json({success:false})
@@ -21,6 +21,7 @@ Router.post('/',async (req,res)=>{
     })
 
 Router.patch('/:id', (req,res)=>{
+  // console.log(req.body,req.params.id)
     Product.findByIdAndUpdate(req.params.id,{
         name:req.body.name,
         price:req.body.price,
@@ -32,11 +33,12 @@ Router.patch('/:id', (req,res)=>{
         Description:req.body.Description,
         // images:req.body.images
     })
+    // console.log(req.body.images)
     .then((result)=>{
-            if(result){res.send(result)}
-            else{res.send("Couldn’t delete the Request Boss")}
+            if(result) return res.send(result);console.log(result)
+                return res.send("Couldn’t delete the Request Boss")
     })
-    .catch((err)=>res.send(err))
+    .catch((err)=>{res.send(err);console.log(err)})
 })
 
   Router.get("/", async (req,res)=>{
@@ -52,11 +54,13 @@ Router.patch('/:id', (req,res)=>{
   })
 
   Router.get("/:id", async (req,res)=>{
+    // console.log(req.s)
     const specifiedProduct = await Product.findById(req.params.id)
+      //  console.log(specifiedProduct)
     if(!specifiedProduct) return res.status(400).send("Couldn’t get anything for you")
-    res.status(200).send(specifiedProduct)
+    res.status(200).json({success:true,content:specifiedProduct})
   })
-
+ 
   Router.delete("/:id",(req,res)=>{
      Product.findByIdAndRemove(req.params.id)
        .then((result)=>{
