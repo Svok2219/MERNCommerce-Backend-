@@ -36,7 +36,7 @@ Router.patch('/:id', (req,res)=>{
     // console.log(req.body.images)
     .then((result)=>{
             if(result) return res.send(result);console.log(result)
-                return res.send("Couldn’t delete the Request Boss")
+                return res.send("Couldn’t Update the Request Boss")
     })
     .catch((err)=>{res.send(err);console.log(err)})
 })

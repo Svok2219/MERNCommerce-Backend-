@@ -19,12 +19,13 @@ const ProductsRouter = require("./Router/ProductsRouter");
 const CategoryRouter = require("./Router/CategoryRouter");
 const UserRouter = require("./Router/UserRouter");
 const GalleryRouter = require("./Router/GalleryRouter");
+const OrderRouter = require("./Router/OrderRouter");
 
 app.use("/Products", ProductsRouter);
 app.use("/User", UserRouter);
 app.use("/Category", CategoryRouter);
 app.use("/Gallery", GalleryRouter);
-
+app.use("/Orders", OrderRouter)
 
 mongoose.connect(
     `mongodb+srv://MERNdeveloper:${process.env.DB_PASS}@clustermerncom.ukkrnja.mongodb.net/?retryWrites=true&w=majority`,
