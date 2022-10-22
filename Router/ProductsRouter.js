@@ -21,7 +21,7 @@ Router.post('/',async (req,res)=>{
     })
 
 Router.patch('/:id', (req,res)=>{
-  // console.log(req.body,req.params.id)
+  // console.log(req)
     Product.findByIdAndUpdate(req.params.id,{
         name:req.body.name,
         price:req.body.price,
@@ -35,8 +35,8 @@ Router.patch('/:id', (req,res)=>{
     })
     // console.log(req.body.images)
     .then((result)=>{
-            if(result) return res.send(result);console.log(result)
-                return res.send("Couldn’t Update the Request Boss")
+            if(result) return res.status(200).send(result);console.log(result)
+                return res.status(400).json({succes:false})
     })
     .catch((err)=>{res.send(err);console.log(err)})
 })
