@@ -15,7 +15,7 @@ Router.get('/:id', async (req,res)=>{
                      return res.send("Couldn’t Patch the Order Boss")  
 })
 Router.get('/Description/:id', async (req,res)=>{
-  console.log(req.params.id)
+  // console.log(req.params.id)
   const OrderOfTheUser = await Orders.findById(req.params.id)
 if(OrderOfTheUser) return res.status(200).json({success:true,content:OrderOfTheUser})
                    return res.send("Couldn’t find the Order Boss")  
