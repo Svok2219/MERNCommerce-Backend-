@@ -14,6 +14,12 @@ Router.get('/:id', async (req,res)=>{
   if(OrderOfTheUser) return res.status(200).json({success:true,content:OrderOfTheUser})
                      return res.send("Couldn’t Patch the Order Boss")  
 })
+Router.get('/Description/:id', async (req,res)=>{
+  console.log(req.params.id)
+  const OrderOfTheUser = await Orders.findById(req.params.id)
+if(OrderOfTheUser) return res.status(200).json({success:true,content:OrderOfTheUser})
+                   return res.send("Couldn’t find the Order Boss")  
+})
 Router.delete("/:id",(req,res)=>{
     Orders.findByIdAndRemove(req.params.id)
       .then((result)=>{
@@ -23,6 +29,7 @@ Router.delete("/:id",(req,res)=>{
         .catch((err)=>res.send(err))
  })
  Router.patch('/:id',(req,res)=>{
+   console.log(req.params.id)
     Orders.findByIdAndUpdate(req.params.id,{
         // CustomerName:req.body.CustomerName,
         // CustomerID:req.body.CustomerID,
