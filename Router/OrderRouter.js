@@ -58,7 +58,7 @@ Router.delete("/:id",(req,res)=>{
     OrderforPost.save()
     
     .then((result)=>{
-      // console.log(result._id)
+      console.log(result._id)
       if(!result) return res.status(400).json({content:"A Problem Occured"})
                   return res.status(200).json({content:result._id})
                 
