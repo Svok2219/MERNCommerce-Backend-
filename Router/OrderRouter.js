@@ -56,9 +56,12 @@ Router.delete("/:id",(req,res)=>{
        })  
 
     OrderforPost.save()
+    
     .then((result)=>{
-            if(result) return res.send(result);console.log(result)
-                return res.send("Couldn’t Patch the Order Boss")
+      // console.log(result._id)
+      if(!result) return res.status(400).json({content:"A Problem Occured"})
+                  return res.status(200).json({content:result._id})
+                
     })
     .catch((err)=>{res.send(err);console.log(err)})
  })
