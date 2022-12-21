@@ -26,7 +26,7 @@ app.use("/User", UserRouter);
 app.use("/Category", CategoryRouter);
 app.use("/Gallery", GalleryRouter);
 app.use("/Orders", OrderRouter)
-
+mongoose.set('strictQuery', true)
 mongoose.connect(
     `mongodb+srv://MERNdeveloper:${process.env.DB_PASS}@clustermerncom.ukkrnja.mongodb.net/?retryWrites=true&w=majority`,
     {
@@ -42,5 +42,6 @@ mongoose.connect(
     console.log(err);
   });
 
-const port = process.env.PORT ;
+  const port = process.env.PORT || 3000;
+
 app.listen(port, () => console.log(`Server running on port ${port}`));
